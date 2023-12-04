@@ -23,11 +23,14 @@ public class AD_ConexionSQL {
         Statement stmt = null;
         
         try {
+            //Establece la conexión con la BBDD
             Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = con.createStatement();
+            //Ejecuta la query y devuelve un objeto ResultSet
             ResultSet rs = stmt.executeQuery(QUERY);
             
-            while (rs.next()) {                
+            while (rs.next()) {    
+                //Obtenemos los valores del registro
                 System.out.println("ID: " + rs.getInt("id"));
                 System.out.println("Nombre: " +rs.getString("Nombre"));
                 System.out.println("Genero: " + rs.getString("Genero"));
@@ -45,13 +48,13 @@ public class AD_ConexionSQL {
             
             //BORRAR UN REGISTRO
             String queryBorrar = "DELETE FROM videojuegos WHERE Nombre = 'The witcher 3'";
-            if (stmt.executeUpdate(queryBorrar) > 0) { //Devuelve la cantidad de filas afectadas
+            if (stmt.executeUpdate(queryBorrar) > 0) { 
                 System.out.println("Se ha eliminado el registro");
             }
             
             //MODIFICAR UN REGISTRO
             String queryModif = "UPDATE videojuegos set Precio = 45 WHERE ID = 5";
-            if (stmt.executeUpdate(queryModif) > 0) { //Devuelve la cantidad de filas afectadas
+            if (stmt.executeUpdate(queryModif) > 0) { 
                 System.out.println("Se ha modificado el registro");
             }
             
@@ -59,7 +62,7 @@ public class AD_ConexionSQL {
             System.out.println("Error al conectar la BBDD: "+e);
             e.printStackTrace();
             
-        } finally {
+        } finally { //Cerramos conexión
             if (stmt != null) {
                 stmt.close();
             }
